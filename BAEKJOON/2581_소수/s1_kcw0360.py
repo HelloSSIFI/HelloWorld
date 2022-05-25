@@ -15,6 +15,7 @@ for i in range(M, N+1):
     if len(temp) == 2:
         result.append(i)
 
+# result에 값이 없을시 -1 출력, 존재한다면 합과 최소값 출력
 if result:
     print(sum(result))
     print(result[0])
