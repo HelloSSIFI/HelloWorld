@@ -1,18 +1,33 @@
-N = 3
-M = 7
+# N, M = map(int, input().split())
+#
+# tmp = min(N//2, M//2)
+#
+# max_v = 1
+# min_v = 1
+#
+# while tmp:
+#
+#     if N%tmp == 0 and M%tmp == 0:
+#         N //= tmp
+#         M //= tmp
+#         max_v *= tmp
+#         break
+#     tmp -= 1
+#
+#
+# min_v = max_v*N*M
+#
+#
+#
+# print(max_v)
+# print(min_v)
 
-cnt = 2
-var = 1
-result = 0
+N, M = map(int, input().split())
 
-while var < N:
-    var += cnt
-    cnt += 1
+tmp = []
+for i in range(1, min(N, M) + 1):
+    if N % i == 0 and M % i == 0:
+        tmp.append(i)
 
-else:
-    if N - var > M- N + 1:
-        result = cnt*(N-1) + (M-N+1-var)*(cnt+1)
-    else:
-        result = cnt * (N - 1)
-
-print(result)
+print(max(tmp))
+print(max(tmp) * (N // max(tmp)) * (M // max(tmp)))
