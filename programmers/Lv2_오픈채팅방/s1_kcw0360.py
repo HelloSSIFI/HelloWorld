@@ -2,12 +2,14 @@ def solution(record):
 
     records = []
     for rec in record:
-        records += [list(rec.split())]
-    user_dict = {}
+        records += [list(rec.split())]    # 입력받은 문자열들 분리 한 후 하나의 리스트로 만들어 저장
+
+    user_dict = {}    # userId : nickname
+
     for i in records:
-        if i[0] == 'Enter':
+        if i[0] == 'Enter':     # 입장했을 때 등록
             user_dict[i[1]] = i[2]
-        elif i[0] == 'Change':
+        elif i[0] == 'Change':    # nickname 변경
             user_dict[i[1]] = i[2]
 
 
