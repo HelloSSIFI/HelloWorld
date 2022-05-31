@@ -1,6 +1,6 @@
 # N, M = map(int, input().split())
 #
-# tmp = min(N//2, M//2)
+# tmp = min(N, M)
 #
 # max_v = 1
 # min_v = 1
