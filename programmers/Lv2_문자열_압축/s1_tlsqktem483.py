@@ -1,5 +1,3 @@
-s = input()
-
 def solution(s):
     answer = len(s)
     for i in range(1, len(s)//2 + 1):
@@ -25,5 +23,4 @@ def solution(s):
             result += target
 
         answer = len(result) if answer > len(result) else answer
-
     return answer
