@@ -1,8 +1,12 @@
 # 테스트케이스 5번에서 런타임에러
-# 96 / 100
+# 96 / 100 -> 통과(문자열 길이가 1일 때 조건 처리)
 
 def solution(s):
     original_data = s
+
+    ## 길이가 하나인 경우, 압축할 수 있는 최소 길이는 1 ##
+    if len(original_data) == 1:
+        return 1
 
     result_list = []
     max_size = len(original_data) // 2
@@ -46,3 +50,4 @@ def solution(s):
 
     answer = min(data_length)
     return answer
+
