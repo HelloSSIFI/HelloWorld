@@ -1,14 +1,14 @@
 def check(idx, cnt):
     global result
-    if cnt == K - 5:
+    if cnt == K - 5:    # 기본글자 제외하고 배운 글자수가 될 때
         temp = 0
-        for words in learning:
+        for words in learning:    # 기본 글자 제외한 글자가 check에 포함된 글자인지 확인
             for word in words:
                 if not learned_check[ord(word) - ord('a')]:
                     break
-            else:
+            else:    # check에 모두 포함된 단어라면 temp에 +1
                 temp += 1
-        result = max(result, temp)
+        result = max(result, temp)    # temp와 result 중 큰 값을 result 값에 저장
         return
 
     for i in range(idx, 26):
@@ -18,9 +18,9 @@ def check(idx, cnt):
             learned_check[i] = 0
 
 N, K = map(int, input().split())
-base = ['a', 'c', 'i', 'n', 't']
-learned_check = [0] * 26
-result = 0
+base = ['a', 'c', 'i', 'n', 't']    # 기본으로 알고 가야할 글자
+learned_check = [0] * 26    # 배운 글자 체크
+result = 0    # 결과값
 
 for i in base:
     learned_check[ord(i) - ord('a')] = 1
