@@ -13,7 +13,7 @@ for i in range(K):
         temp = -1
         for j in range(N):
             app = appliances[i + 1:K]    # 추후 사용해야할 용품들
-            if multitap[j] not in A:    # 추후 재사용 물건이 없을 경우
+            if multitap[j] not in app:    # 추후 재사용 물건이 없을 경우
                 multitap.remove(multitap[j])
                 unplug += 1
                 break
