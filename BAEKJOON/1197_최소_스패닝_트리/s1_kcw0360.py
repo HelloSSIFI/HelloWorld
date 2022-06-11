@@ -1,4 +1,7 @@
-V, E = map(int,input().split())
+import sys
+input = sys.stdin.readline
+
+V, E = map(int, input().split())
 
 graph = []    # 입력 받은 그래프
 mst = []    # 최소 신장 트리
