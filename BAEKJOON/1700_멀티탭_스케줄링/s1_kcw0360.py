@@ -20,7 +20,7 @@ for i in range(K):
             else:
                 maxi = max(temp, app.index(multitap[j]))    # 추후 재사용 예정이 있는 경우 가장 마지막에 사용할 물건 찾기
         if len(multitap) > N:
-            multitap.remove(app[temp])    # 가장 마지막에 쓸 물건 제거
+            multitap.remove(app[maxi])    # 가장 마지막에 쓸 물건 제거
             unplug += 1
 
 print(unplug)
