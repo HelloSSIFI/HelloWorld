@@ -1,4 +1,5 @@
-import heapq
+import heapq, sys
+input = sys.stdin.readline
 '''
 python 시간초과
 pypy 통과
