@@ -16,9 +16,7 @@ def solution(N, number):
             num_set.add(tmp-N)
             num_set.add(tmp*N)
 
-            if tmp < 0:
-                num_set.add(-((-tmp)//N))
-            else:
+            if tmp:
                 num_set.add(tmp//N)
 
         num_set.add(int(str(N)*cnt))
