@@ -15,7 +15,7 @@ def solution(numbers, target):
                 ans += 1
             return
 
-        dfs(value + numbers[idx], idx+1)        # +, - 검사
+        dfs(value + numbers[idx], idx+1)        # +, - 재귀
         dfs(value - numbers[idx], idx+1)
 
     dfs(0, 0)
