@@ -21,8 +21,8 @@ for _ in range(e):
 
 
 def topology_sort():
-    result = []             # 알고리즘 수행 결과를 담을 리+
-    # 스트
+    result = []             # 알고리즘 수행 결과를 담을 리스트
+
     q = deque()             # 큐 기능을 위한 deque 라이브러리
 
     # 처음 시작할 때는 진입 차수가 0인 노드를 큐에 삽입
