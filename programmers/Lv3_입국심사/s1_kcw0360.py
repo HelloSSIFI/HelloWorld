@@ -1,7 +1,7 @@
 def solution(n, times):
     answer = 0
     start = 0
-    end = max(times) * n    #
+    end = max(times) * n
 
     while start <= end:
         mid = (start + end) // 2
