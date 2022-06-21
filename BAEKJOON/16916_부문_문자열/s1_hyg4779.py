@@ -4,6 +4,7 @@ P = input()
 print(int(P in S))
 '''
 
+
 def kmp_table(word):
 
     '''
@@ -26,6 +27,8 @@ def kmp_table(word):
             table[i] = idx
 
     return table
+
+
 def KMP(text, word):
     table = kmp_table(word)             # 전처리 된 테이블 불러오기
 
@@ -55,6 +58,8 @@ word = input()
 table = [0]*len(text)                    # 문자열 접두사 접미사 일치하는 개수 확인 배열
 
 # https://youtu.be/yWWbLrV4PZ8 : KMP알고리즘-나동빈
+
+
 def make_table(wrd):
     idx = 0                             # 접두사 인덱스
     for i in range(1, len(wrd)):
