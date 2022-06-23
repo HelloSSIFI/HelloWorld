@@ -1,5 +1,47 @@
+import sys
+input = sys.stdin.readline
+
+N, K = map(int, input().split())
+schedule = list(map(int, input().split()))
+plugs = []
+
+cnt = 0
+for app_idx in range(K):
+    # 이미 있는 가전 기구라면 pass
+    if schedule[app_idx] in plugs:
+        continue
+
+    # 플러그에 자리가 남았다면 플러그 인
+    if len(plugs) < N:
+        plugs.append(schedule[app_idx])
+        continue
+
+    unplugged_idx = 0
+    far_distance = 0
+    for plug in plugs:
+        # 플러그에 있는 가전 기구 중 나중에 쓰지 않는 기구 플러그 아웃  
+        if plug not in schedule[app_idx:]:
+            unplugged_idx = plugs.index(plug)
+            break
+        # 현재 플러그에 있는 기구 중 가장 나중에 사용될 기구를 플러그 아웃
+        # 가장 나중에 사용되는지 여부를 알기 위한 거리 체크
+        distance = schedule[app_idx:].index(plug)
+        if far_distance < distance:
+            far_distance = distance
+            unplugged_idx = plugs.index(plug)
+
+
+    plugs[unplugged_idx] = schedule[app_idx]
+    cnt += 1
+
+print(cnt)
+
 '''
 27% fail
+잘못된 그리디 전략: 전체 사용 순서에서 현재 플러그에 있는 기구 중 '가장' 마지막에 사용되는 기구를 뽑음
+
+전체 사용 순서에서 가장 마지막에 있는 기구의 플러그를 뽑는 것이 아니라
+현재 플러그에 있는 기구 중 다음에 사용될 순서가 가장 나중인 것을 뽑아야 한다.
 
 import sys
 input = sys.stdin.readline
