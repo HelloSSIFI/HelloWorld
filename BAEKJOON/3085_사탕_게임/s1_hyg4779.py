@@ -18,8 +18,8 @@ def check(mat):
             else:                           # 다르면 1
                 c_cnt = 1
 
-        answer = max(r_cnt, c_cnt, answer)  # 최댓값 갱신
-        r_cnt = c_cnt = 1                   # 카운트 개수 초기화
+            answer = max(r_cnt, c_cnt, answer)  # 최댓값 갱신
+        r_cnt = c_cnt = 1                       # 카운트 개수 초기화
 
     return answer
 
