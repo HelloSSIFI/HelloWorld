@@ -1,6 +1,10 @@
 import math
 
 # 약수의 성질로 소수를 판별하는 것이 중요 point
+# 일반적인 에라토스테네스의 체로 걸러내려고 하면, 
+# n이 최대 1,000,000까지 가능하므로 이를 k진수로 변경할 때 숫자가 매우 길어질 수 있다. -> 시간초과 원인
+# 주어진 수에서 곧바로 소수를 판별하는 알고리즘으로 풀이해야 함
+
 
 def is_prime(value):
     if value <= 1:
@@ -10,8 +14,6 @@ def is_prime(value):
         if value % i == 0:
             return False
     return True
-            
-    return prime_ref
     
 
 def solution(n, k):
