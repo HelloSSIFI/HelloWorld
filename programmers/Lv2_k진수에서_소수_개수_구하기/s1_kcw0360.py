@@ -30,5 +30,3 @@ def solution(n, k):
             answer += 1
 
     return answer
-
-print(solution(437674, 3))
