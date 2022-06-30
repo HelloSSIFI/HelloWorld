@@ -3,18 +3,17 @@ input = sys.stdin.readline
 
 def teach(k, i):
     global cnt
-
-    if k == 0:
+    if len(new_set) == k:
         temp_cnt = 0
         for word in new_words:
-            if (new_set | default_set ) >= set(word):
+            if new_set >= word:
                 temp_cnt += 1
         cnt = max(cnt, temp_cnt)
         return
 
     for j in range(i, len(char_set)):
         new_set.add(char_set[j])
-        teach(k - 1, i + 1)
+        teach(k, j + 1)
         new_set.remove(char_set[j])
 
 N, K = map(int, input().split())
@@ -28,7 +27,9 @@ for _ in range(N):
     temp = set(word) - default_set
     if temp:
         char_set.update(temp)
-    new_words.append(word)
+        new_words.append(temp)
+    else:
+        answer += 1
         
 char_set = list(char_set)
 new_set = set()
@@ -39,6 +40,5 @@ elif len(char_set) + len(default_set) <= K:
 else:
     cnt = 0
     teach(K - 5, 0)
-    answer = cnt
+    answer += cnt
 print(answer)
-
