@@ -10,8 +10,7 @@ def solution(fees, records):
     answer = defaultdict(list)              # 차량 번호별 주차시간을 담을 변수
 
     # 기본 시간, 기본 요금, 단위 시간, 단위 요금
-    base_time, base_fee, a, a_fee = fees[0], fees[1], fees[2], fees[3]
-
+    base_time, base_fee, a, a_fee = fees
     for _ in records:
         t, n, s = _.split()     # 시간, 번호, 입출차
         answer[n].append(t)

@@ -2,16 +2,14 @@ from collections import defaultdict
 
 
 def solution(orders, course):
-    '''
-    실패코드
-    '''
     answer = []
     arr = defaultdict(int)
 
     for i in range(len(orders)):
         pair1 = set(orders[i])                              # 원 비교 문자
 
-        for j in range(i+1, len(orders)):
+        for j in range(len(orders)):
+            if i==j:continue
             pair2 = set(orders[j])                          # 피 비교 문자
             tmp = ''.join(sorted(list(pair1 & pair2)))      # 오름차 순으로 합친 문자
 
@@ -25,7 +23,6 @@ def solution(orders, course):
 
             if set(list_arr[x]) & set(list_arr[y]) == set(list_arr[x]):
                 arr[list_arr[x]] += 1
-
 
     for cnt in course:                                      # 길이 별 가장 자주 등장한 조합을 answer에 추가
         q, val = [], 0
