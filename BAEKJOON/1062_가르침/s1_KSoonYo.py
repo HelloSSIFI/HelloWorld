@@ -1,55 +1,44 @@
-# 시간 초과 fail
+import sys
+input = sys.stdin.readline
 
-N, K = map(int, input().split())
-
-characters = ['a', 'n', 't', 'c', 'i']       # 접두어, 접미어에 포함되는 글자
-K -= len(characters)
-letters = []
-
-def teach(candidates, K):
-    global maxV
-    if K == 0:
-        # 글자를 K개 모두 가르쳤다면 주어진 N개 단어에서 읽을 수 있는 단어 count
-        maxV = max(maxV, readable())
+def teach(k, i):
+    global cnt
+    if len(new_set) == k:
+        temp_cnt = 0
+        for word in new_words:
+            if new_set >= word:
+                temp_cnt += 1
+        cnt = max(cnt, temp_cnt)
         return
 
-    
-    # 후보군의 글자를 하나씩 가르친다고 가정
-    for letter_idx in range(len(candidates)):
-        if candidates[letter_idx] in characters:
-            continue
+    for j in range(i, len(char_set)):
+        new_set.add(char_set[j])
+        teach(k, j + 1)
+        new_set.remove(char_set[j])
 
-        characters.append(candidates[letter_idx])
+N, K = map(int, input().split())
+default_set = {'a', 'n', 't', 'i', 'c'}
+new_words = []
+char_set = set()
 
-        # k-1개 이내로 가르칠 수 있는 다음 글자를 가르치러감
-        teach(candidates, K - 1)
-
-        # 가르쳤다고 가정한 단어를 꺼내고 다음 글자를 가르친다고 가정
-        characters.pop()    
-
-def readable():
-    cnt = 0
-    for letter in letters:
-        flag = False
-        for character in letter:
-            if character not in characters:
-                flag = True
-                break
-        if not flag:
-            cnt += 1
-
-    return cnt
-
-if K <= 0:
-    print(0)
+answer = 0
+for _ in range(N):
+    word = input().strip()
+    temp = set(word) - default_set
+    if temp:
+        char_set.update(temp)
+        new_words.append(temp)
+    else:
+        answer += 1
+        
+char_set = list(char_set)
+new_set = set()
+if K < 5:
+    answer = 0
+elif len(char_set) + len(default_set) <= K:
+    answer = N
 else:
-    for _ in range(N):
-        word = input()
-        word = word.strip('anta')             # 접두어 제거
-        letter = word.strip('tica')           # 접미어 제거
-        letter = ''.join(list(set(letter)))   # 중복 글자 제거
-        letters.append(letter)
-    maxV = 0
-    candidates = ''.join(letters)
-    teach(candidates, K)
-    print(maxV)
+    cnt = 0
+    teach(K - 5, 0)
+    answer += cnt
+print(answer)
