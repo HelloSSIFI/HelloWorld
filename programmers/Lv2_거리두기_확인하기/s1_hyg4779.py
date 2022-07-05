@@ -6,25 +6,24 @@ def solution(places):
 
         visit = [[0] * 5 for _ in range(5)]
         visit[r][c] = True
-        queue = deque([(r, c)])
-        cnt = 0
+        queue = deque([(r, c, 0)])
 
-        while queue and cnt < 2:
-            ni, nj = queue.popleft()
+        while queue:
+            ni, nj, dist = queue.popleft()
             for d in direct:
                 si, sj = ni + d[0], nj + d[1]
                 if 0 <= si < 5 and 0 <= sj < 5 and not visit[si][sj]:
 
                     if arr[si][sj] == 'O':  # 빈자리면 추가 & 파티션이면 갈 수 없음
                         visit[si][sj] = True
-                        queue.append((si, sj))
+                        queue.append((si, sj, dist+1))
 
                     elif arr[si][sj] == 'P':  # 사람을 만나면 return False
-                        return False
-
-            cnt += 1
+                        if dist+1 <= 2:
+                            return False
 
         return True
+
 
     direct = [(1, 0), (-1, 0), (0, 1), (0, -1)]
     ans = [1, 1, 1, 1, 1]
@@ -45,10 +44,4 @@ def solution(places):
                 i += 1
                 j = 0
 
-
     return ans
-
-
-print(solution([["POOOP", "OXXOX", "OPXPX", "OOXOX", "POXXP"], ["POOPX", "OXPXP", "PXXXO", "OXXXO", "OOOPP"],
-                ["PXOPX", "OXOXP", "OXPOX", "OXXOP", "PXPOX"], ["OOOXX", "XOOOX", "OOOXX", "OXOOX", "OOOOO"],
-                ["PXPXP", "XPXPX", "PXPXP", "XPXPX", "PXPXP"]]))
