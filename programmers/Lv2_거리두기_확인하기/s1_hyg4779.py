@@ -9,6 +9,7 @@ def solution(places):
         queue = deque([(r, c, 0)])
 
         while queue:
+            # 갈 수 있는 곳: O, X는 큐에 안담음
             ni, nj, dist = queue.popleft()
             for d in direct:
                 si, sj = ni + d[0], nj + d[1]
@@ -17,7 +18,7 @@ def solution(places):
                     if arr[si][sj] == 'O':  # 빈자리면 추가 & 파티션이면 갈 수 없음
                         visit[si][sj] = True
                         queue.append((si, sj, dist+1))
-
+                    # 사람을 찾으면 거리를 보고 2 이하면 False 리턴
                     elif arr[si][sj] == 'P':  # 사람을 만나면 return False
                         if dist+1 <= 2:
                             return False
@@ -28,6 +29,7 @@ def solution(places):
     direct = [(1, 0), (-1, 0), (0, 1), (0, -1)]
     ans = [1, 1, 1, 1, 1]
 
+    # 각 배열별 사람을 찾으면 bfs 시작
     for now in range(5):
         array = places[now]
 
