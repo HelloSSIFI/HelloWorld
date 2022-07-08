@@ -1,0 +1,1 @@
+for _ in range(int(input())):d=int(input());a,b=d//6+1,d%6;print(a*(3*a-3+b)+(b==0))
