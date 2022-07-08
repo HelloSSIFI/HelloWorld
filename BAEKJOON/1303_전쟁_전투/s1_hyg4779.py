@@ -24,12 +24,11 @@ def bfs(color, i, j):
                 visit[si][sj] = True
                 queue.append((si, sj))
 
-
-
-    # print(color, cnt)
     power[color] += cnt**2
 
 
+# 배열을 돌며 현재 색깔의 그룹을 찾고,
+# 그 그룹의 인원수 제곱을 해당 딕셔너리 값에 +
 for r in range(M):
     for c in range(N):
         if not visit[r][c]:
