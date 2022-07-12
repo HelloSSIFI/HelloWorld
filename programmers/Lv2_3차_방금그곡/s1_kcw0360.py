@@ -26,19 +26,12 @@ def check(melody, info):
 
     length = len(pitch) - len(melody)    # 기억하고 있는 부분과 재생된 곡의 음정보 길이 차이
 
-    if length > 0:    # 재생된 것의 음의 길이가 더 긴 경우
+    if length >= 0:    # 재생된 것의 음의 길이가 더 긴 경우
         for i in range(len(pitch)):    # 기억한 멜로디와 같은 길이로 자른 후 비교
             if pitch[i:i+len(melody)] == melody:
                 res.append(time_diff)    # 같다면 결과 값에 시간, 곡 이름 저장
                 res.append(info[2])
                 break    # 찾았기 때문에 반복문 빠져 나오기
-    elif length == 0:    # 길이가 같은 경우 일치 여부 확인 후 같다면 곡 재생시간, 곡 이름 저장
-        if pitch == melody:
-            res.append(time_diff)
-            res.append(info[2])
-
-    if time_diff == 0:    # 재생이 안된 경우
-        return []
 
     return res
 
