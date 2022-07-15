@@ -4,6 +4,7 @@ N, M = map(int, input().split())    # N: 세로, M: 가로
 maze = [list(map(int, input())) for _ in range(n)]
 visited = [[0]*M for _ in range(N)]
 
+
 def dfs():
     q = deque()
     q.append([0, 0])
@@ -21,9 +22,11 @@ def dfs():
         for k in range(4):
             y = a + dy[k]
             x = b + dx[k]
+
             if 0 <= y < N and 0 <= x < M and maze[y][x] == 1 and visited[y][x] == 0:
                 visited[y][x] = visited[a][b] + 1
                 q.append([y, x])
+
                 if [y, x] == [N-1, M-1]:
                     return visited[y][x]
 

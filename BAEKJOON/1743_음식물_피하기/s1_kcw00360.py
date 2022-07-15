@@ -28,6 +28,7 @@ def dfs(start):
                 visited[y][x] = 1
                 cnt += 1
                 q.append([y, x])
+
     return cnt
 
 

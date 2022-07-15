@@ -11,6 +11,7 @@ for i in range(N):    # 곡 순서대로 볼륨 조정
                 dp[i+1][dp[i][j] + vol[i]] = dp[i][j] + vol[i]    # 다음 곡 불륨 크기 저장
             if dp[i][j] - vol[i] >= 0:    # 0보다 작아지는지 체크
                 dp[i + 1][dp[i][j] - vol[i]] = dp[i][j] - vol[i]
+
     if dp[i+1].count(-1) == M+1:    # 다음 곡에 저장 된 볼륨이 없다면 중간 볼륨 조절 할 수가 없는 경우
         flag = False
         break
