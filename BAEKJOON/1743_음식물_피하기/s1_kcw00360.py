@@ -10,7 +10,7 @@ for _ in range(K):    # 음식물 쓰레기 배치
     space[a-1][b-1] = 1    # 음식물 쓰레기가 위치한 곳 표시
 
 
-def dfs(start):
+def bfs(start):
     q = deque()
     q.append(start)
     visited[start[0]][start[1]] = 1
@@ -35,6 +35,6 @@ def dfs(start):
 for i in range(N):
     for j in range(M):
         if space[i][j] == 1 and visited[i][j] == 0:
-            result.append(dfs([i, j]))
+            result.append(bfs([i, j]))
 
 print(max(result))
