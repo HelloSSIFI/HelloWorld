@@ -1,6 +1,6 @@
 def solution(s):
 
-    array = s[2:-2].replace('},{', '|').split('|')
+    array = s[2:-2].split('},{')
 
 
     for i in range(len(array)):
