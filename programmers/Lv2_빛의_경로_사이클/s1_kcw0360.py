@@ -1,5 +1,4 @@
 def solution(grid):
-    global answer, visited
     w, h = len(grid[0]), len(grid)
     answer = []
     # 가로 세로 방향으로 방문체크 하기 위한 visited
@@ -8,8 +7,8 @@ def solution(grid):
     direction = {0: [-1, 0], 1: [0, 1], 2: [1, 0], 3: [0, -1]}
 
     # 모든 경우의 수 확인
-    for i in range(len(grid)):
-        for j in range(len(grid[0])):
+    for i in range(h):
+        for j in range(w):
             for d in range(4):
                 if visited[i][j][d]:
                     continue
