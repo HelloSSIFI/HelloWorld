@@ -5,7 +5,7 @@ maze = [list(map(int, input())) for _ in range(n)]
 visited = [[0]*M for _ in range(N)]
 
 
-def dfs():
+def bfs():
     q = deque()
     q.append([0, 0])
     visited[0][0] = 1
@@ -31,5 +31,5 @@ def dfs():
                     return visited[y][x]
 
 
-print(dfs())
+print(bfs())
 
