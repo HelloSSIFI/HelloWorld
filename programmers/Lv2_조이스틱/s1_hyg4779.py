@@ -1,6 +1,10 @@
 from collections import deque
 
 def solution(name):
+    '''
+    result: 모든 위치의 바꿔야할 문자의 누를 버튼 수 배열
+    Q: result 배열을 이동하면서 탐색하는 모든 경우의 수를 담는 Q
+    '''
     answer = float('inf')
     N = len(name)
     result = [0]*N
@@ -13,10 +17,12 @@ def solution(name):
     while Q:
         idx, cnt, now = Q.popleft()
 
+        # 바꿀 문자가 없다면 answer갱신
         if sum(now)==0:
             answer = min(answer, cnt)
             continue
 
+        # 현재 위치에서 부터 양 쪽으로 이동 하며 바꿔야 하는 위치 모두 탐색
         j = 1
         while j < N//2+1:
             p, m = (idx+j)%N, (idx-j)%N

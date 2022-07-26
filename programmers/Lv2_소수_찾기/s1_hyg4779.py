@@ -6,6 +6,7 @@ def solution(numbers=str):
     각 개수 별 만들어진 수가 소수인지 찾음
     소수면 ans+=1    
     '''
+    # 가능한 조합 생성 dfs
     def dfs(n=int, tmp=str):
         if n==count:
             if int(tmp)>1:
@@ -18,6 +19,7 @@ def solution(numbers=str):
                 dfs(n+1, tmp+numbers[j])
                 vis[j] = 0
 
+    # 소수 생성
     arr = set()
     for count in range(1, N+1):
         vis = [0]*N
@@ -26,6 +28,7 @@ def solution(numbers=str):
             dfs(1, numbers[i])
             vis[i] = 0
 
+    # 만들어진 숫자들 소수 검사
     for arg in arr:
         for num in range(2, int(arg**0.5)+1):
             if arg%num==0:
