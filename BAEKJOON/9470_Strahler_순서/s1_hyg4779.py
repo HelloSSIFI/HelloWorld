@@ -23,14 +23,17 @@ for tc in range(int(input())):
         now = Q.popleft()
         val = strahler[now][0]
         for node in graph[now]:
-
+            # 현재 강이 갈 수 있는 노드를 탐색하며
+            # 들어온 순서의 최대 크기와 들어온 강 줄기 수 갱신
             if strahler[node][0] < val:
                 strahler[node] = [val, 1]
             elif strahler[node][0] == val:
                 strahler[node][1] += 1
 
             degree[node] -= 1
+            # 진입 차수가 끝난 노드
             if degree[node] == 0:
+                # 진입이 끝나면 강 줄기도 더 이상 갱신 안됨
                 if strahler[node][1] > 1:
                     strahler[node][0] += 1
                     strahler[node][1] = 0
