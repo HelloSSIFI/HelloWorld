@@ -17,6 +17,7 @@ def solution(n, computers):
                     if i == now:
                         visited[i] = 1
                         continue
+
                     visited[i] = 1
                     q.append(i)
 
