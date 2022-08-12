@@ -12,7 +12,6 @@ dp = [[0] * (max_cost + 1) for _ in range(N + 1)]   # dp[i][j] : i번째 까지 
 
 
 for i in range(1, N + 1):
-    is_min = False
     max_j = sum(cost_table[:i + 1])
     for j in range(max_cost + 1):
         if j >= cost_table[i]:
