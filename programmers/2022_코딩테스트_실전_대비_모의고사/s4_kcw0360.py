@@ -6,7 +6,7 @@ def solution(beginning, target):
     temp = 0
     for i in range(n):
         for j in range(m):
-
+            pass
     return answer
 
 
