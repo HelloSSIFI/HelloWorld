@@ -1,6 +1,8 @@
 import sys
-from itertools import combinations
 input = sys.stdin.readline
+
+# 문제는 최소 비용을 요구하고 있으나, 비용마다 i번째 앱을 포함시킬 때 확보할 수 있는 메모리의 최대값을 dp로 기록하고, 
+# 메모리가 M을 넘어가는 순간의 비용을 체크하면 쉽게 답을 구할 수 있다.
 
 N, M = map(int, input().split())
 memory_table = [0] + list(map(int, input().split()))
