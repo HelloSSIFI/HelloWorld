@@ -5,32 +5,29 @@ def solution(relation):
     cols = len(relation[0])
 
     combs = []
-    for i in range(1, cols+1):
+    for i in range(1, cols+1):    # 후보키 모든 경우 만든 후 저장
         combs.extend(combinations(range(cols), i))
 
     candidates = []
-    for comb in combs:
-        temp = set()
+    for comb in combs:    # 후보 키가 될 수 있는지 확인
+        temp = set()    # 중복 제거
 
-        for row in relation:
-            tmp = []
+        for row in relation:    # relation에서 확인
+            tmp = []    # 임시 저장
 
-            for i in comb:
+            for i in comb:    # 후보 키에 해당 하는 값들만 tmp에 임시저장
                 tmp.append(row[i])
-            temp.add(tuple(tmp))
+            temp.add(tuple(tmp))    # 튜플로 만든 후 temp에 저장
 
-        # 유일성 검사
-        if len(temp) == len(relation):
+        if len(temp) == len(relation):    # 중복 확인
             flag = True
 
-            # 최소성 검사
-            for candidate in candidates:
+            for candidate in candidates:    # 최소성 확인
                 if set(candidate).issubset(set(comb)):
                     flag = False
                     break
 
-            # 두 조건을 모두 만족하는 경우 candidates 배열에 추가
-            if flag:
+            if flag:    # 중복 검사, 최소성 검사를 통과한 후보 키만 저장
                 candidates.append(comb)
 
     return len(candidates)
