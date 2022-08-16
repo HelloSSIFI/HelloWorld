@@ -1,6 +1,6 @@
 def solution(n, k, cmd):
     answer = ['O'] * n
-    table = {i: [i-1, i+1] for i in range(n)}    # 현재 idx 앞 뒤 값을 value로 지정
+    table = [[i-1, i+1] for i in range(n)]    # 현재 idx 앞 뒤 값을 value로 지정
     table[0] = [None, 1]    # 0은 앞, n-1은 뒤가없기 때문에 None으로 표기
     table[n-1] = [n-2, None]
     storage = []
