@@ -30,7 +30,6 @@ while q:
 
     # 화면에 있는 이모티콘 중 하나를 삭제
     if 0 < num and visited[num-1][save] == 0:
-        visited[num-1][save]
         q.append([num-1, cnt+1, save])
 
 

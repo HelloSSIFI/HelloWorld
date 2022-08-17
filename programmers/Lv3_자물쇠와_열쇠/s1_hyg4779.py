@@ -28,7 +28,7 @@ def solution(key, lock):
                 return True
 
             b += 1
-            if b == n:
+            if b == m:
                 a += 1
                 b = 0
 

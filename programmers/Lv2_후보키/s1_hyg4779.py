@@ -14,12 +14,12 @@ def solution(relation):
     for j in combs:
         tmp = [tuple([item[key] for key in j]) for item in relation]
 
-        # 유일성
+
         if len(set(tmp)) == n:
 
-            # 최소성
+
             for k in success:
-                if set(k).issubset((set(j))):
+                if set(j) >=set(k):
                     break
             else:
                 success.append(j)
