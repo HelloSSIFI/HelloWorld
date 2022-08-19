@@ -2,7 +2,7 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-# 상, 하, 좌, 우, 대각 왼 위, 대각 오른 위, 대각 오른 아래
+# 상, 하, 좌, 우, 대각 왼 위, 대각 왼 오, 대각 오른 위, 대각 오른 아래
 dirs = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]]         
 
 N, M = map(int, input().split())
