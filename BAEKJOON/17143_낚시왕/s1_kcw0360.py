@@ -26,8 +26,8 @@ for king in range(C):    # 한칸씩 이동 하며 낚시
     temp_sea = [[0]*C for _ in range(R)]
     for i in range(R):
         for j in range(C):
-            y, x = i, j
             if sea[i][j]:
+                y, x = i, j
                 vel = sea[i][j][0]
                 d = sea[i][j][1]
                 if d == 1 or d == 2:
@@ -58,7 +58,13 @@ for king in range(C):    # 한칸씩 이동 하며 낚시
                             d = 4
                         else:
                             flag = False
-                    sea[i][j][1] = d
-                temp_sea[y][x] = sea[i][j]
+                sea[i][j][1] = d
+                # 동일 좌표에 상어가 있다면 잡아 먹고 큰 상어 저장
+                if temp_sea[y][x]:
+                    if temp_sea[y][x][2] < sea[i][j][2]:
+                        temp_sea[y][x] = sea[i][j]
+                else:
+                    temp_sea[y][x] = sea[i][j]
     sea = temp_sea
+
 print(result)
