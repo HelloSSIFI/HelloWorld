@@ -1,91 +1,69 @@
-'''
-사람 오른쪽으로 1칸씩 이동
-같은열 가장 높은위치 행에 있는 상어 잡음 -> 상어 사라짐
-상어 이동 -> 같은 칸에 있는 상어 중 가장 큰 상어가 나머지를 다 잡음
-낚시왕이 잡은 상어 크기 합
-'''
-from collections import defaultdict
 import sys
 input = sys.stdin.readline
+
 
 n, m, k = map(int, input().split())
 arr = [[0]*m for _ in range(n)]
 
-shark_dict = defaultdict(list)
-direct = [0, [-1, 0], [1, 0], [0, 1], [0, -1]]
-sharks = [[] for _ in range(k)]
+for i in range(k):
+    a, b, s, d, z = map(int, input().split())
+    arr[a-1][b-1] = (s, d, z)
 
-for l in range(k):
-    r, c, s, d, z = map(int, input().split())
-    arr[r-1][c-1] = z               # 격자에 상어 크기를 넣음
-    sharks[l] = [r-1, c-1, z, s, d]
 
-now = -1
-answer = 0
-while now < m-1:
-    now += 1
+ans = 0
+for j in range(m):
 
-    # 상어 잡기 pass
     for i in range(n):
-        if arr[i][now]:
-            answer += arr[i][now]
-            arr[i][now] = 0
+        if arr[i][j]:
+            ans += arr[i][j][2]
+            arr[i][j] = 0
             break
 
-    # 상어 이동
-    for j in range(k):
-        x, y, size, speed, d = sharks[j]
-        # 속력이 0 or 먹혔으면 continue
-        if speed == 0 or size==0:
-            continue
 
-        speed %= n-1
-        sx, sy = x+direct[d][0]*speed, y+direct[d][1]*speed
-        '''
-        1. 이동해도 벽에 안 부딪힐 때
-        2. 벽에 한 번 부딪힐 때
-        3. 벽에 두 번 이상 부딪힐 때
-        '''
-        # 벽에 안 부딪힐 때
-        if 0 <= sx < n and 0 <= sy < m:
-            arr[x][y] -= size
-            arr[sx][sy] += size
-            sharks[j] = [sx, sy, size, speed, d]
-        # 세로로 부딪힐 때
-        elif d <= 2:
-            sx = (n-1)-x
+    new = [[0]*m for _ in range(n)]
+    for r in range(n):
+        for c in range(m):
+            if arr[r][c]:
 
-            arr[x][y] -= size
-            arr[sx][sy] += size
-            sharks[j] = [sx, sy, size, speed, d]
-        # 가로로 부딪힐 때
-        elif d >= 3:
-            sy = (m-1)-y
+                tmp, direct, size = arr[r][c]
+                nr, nc = r, c
+                speed = tmp
 
-            arr[x][y] -= size
-            arr[sx][sy] += size
-            sharks[j] = [sx, sy, size, speed, d]
+                if direct == 1 or direct == 2:
+                    rot = 2*(n-1)
+                    if direct == 1:
+                        tmp += rot-r
+                    else:
+                        tmp += r
 
-    # 같은 위치 상어 지우기
-    check = defaultdict(list)
-    for l in range(k):
-        a, b, size, speed, d = sharks[l]
-        if size == 0:continue
+                    tmp %= rot
 
-        if not check[(a, b)]:
-            check[(a, b)] = [size, l]
+                    if tmp >= n:
+                        nr, nc, direct = rot-tmp, nc, 1
+                    else:
+                        nr, nc, direct = tmp, nc, 2
 
-        else:
-            # 지금 들어온 상어가 더 크다면 기존 상어 없앰
-            if check[(a, b)][0] < size:
-                pre = check[(a, b)][1]
-                sharks[pre][2] = 0
-                check[(a, b)] = [size, l]
-                arr[a][b] = size
+                else:
+                    rot = 2*(m-1)
+                    if direct == 4:
+                        tmp += rot-c
+                    else:
+                        tmp += c
 
-            # 기존 상어가 더 크다면 현재 상어 없앰
-            else:
-                arr[a][b] -= size
-                sharks[l][2] = 0
+                    tmp %= rot
 
-print(answer)
+                    if tmp >= m:
+                        nr, nc, direct = r, rot-tmp, 4
+                    else:
+                        nr, nc, direct = r, tmp, 3
+
+
+
+                if new[nr][nc]:
+                    new[nr][nc] = max(new[nr][nc], (speed, direct, size), key=lambda x: x[2])
+                else:
+                    new[nr][nc] = (speed, direct, size)
+
+    arr = new
+
+print(ans)
