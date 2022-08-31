@@ -14,8 +14,11 @@ arr = {
 }
 
 def change(num:object=str, octor:object=int):
-    if num=='0' and octor:return '000'
-    if num=='0' and not octor:return '0000'
+    if num=='0' and octor:
+        return '000'
+    if num=='0':
+        return '0000'
+
     num = bin(int(num))[2:]
     return '0'*(3-len(num))+num if octor else '0'*(4-len(num))+num
 
@@ -25,14 +28,13 @@ for i in range(n):
     comm, rD, rA, rB = input().split()
     answer = ''
     C = False
+
     if comm[-1]=='C':
         answer += arr[comm[:-1]]+'10'
         C = True
     else:
         answer += arr[comm]+'00'
 
-
     answer += change(rD, 1) + change(rA, 1)
 
-    answer += change(rB, 0) if C else change(rB, 1)+'0'
-    print(answer)
+    print(answer + change(rB, 0) if C else change(rB, 1)+'0')
