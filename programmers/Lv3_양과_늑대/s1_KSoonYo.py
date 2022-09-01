@@ -1,4 +1,3 @@
-# 백트래킹을 해도 방문했던 노드의 자식 노드를 다음에 방문할 노드로 추가하는 것이 핵심
 
 def dfs(tree, info, node, candidates, sheep = 1, wolf = 0):
     global answer 
