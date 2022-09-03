@@ -33,7 +33,3 @@ def solution(n, paths, gates, summits):
             answer = [summit, visited[summit]]
 
     return answer
-
-
-print(solution(	7, [[1, 2, 5], [1, 4, 1], [2, 3, 1], [2, 6, 7], [4, 5, 1], [5, 6, 1], [6, 7, 1]], [3, 7], [1, 5]))
-
