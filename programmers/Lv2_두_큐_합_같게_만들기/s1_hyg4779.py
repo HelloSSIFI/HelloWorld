@@ -1,28 +1,37 @@
 def solution(queue1, queue2):
 
     n, m = sum(queue1), sum(queue2)
+
     l = len(queue1)
+    answer = l
 
-    dp = dict()
-    answer = 300000
+    dp = [[[0, 0] for _ in range(l*2)] for _ in range(l*2)]
+    dp[0][0] = [n, m]
 
-    def dfs(s1, s2, v1, v2, cnt):
+
+    def dfs(a, b):
         nonlocal answer
+        if dp[a][b][0] == dp[a][b][1]:
+            answer = min(answer, a+b)
+            return a+b
 
-        if s1 == l or s2 == l: return
+        if a+1 < l*2:
+            if a//l:
+                dp[a+1][b] = [dp[a][b][0]-queue2[a%l], dp[a][b][1]+queue2[a%l]]
+            else:
+                dp[a+1][b] = [dp[a][b][0]-queue1[a%l], dp[a][b][1]+queue1[a%l]]
+            dfs(a+1, b)
 
-        if v1 == v2:
-            answer = min(answer, cnt)
-            return
+        if b+1 < l*2:
+            if b//l:
+                dp[a][b+1] = [dp[a][b][0]+queue1[b%l], dp[a][b][1]-queue1[b%l]]
+            else:
+                dp[a][b+1] = [dp[a][b][0]+queue2[b%l], dp[a][b][1]-queue2[b%l]]
+            dfs(a, b+1)
 
-        if dp.get((s1, s2, v1, v2)) is None:
-            dp[(s1, s2, v1, v2)] = True
-            dfs(s1+1, s2, v1-queue1[s1], v2+queue1[s1], cnt+1)
-            dfs(s1, s2+1, v1+queue2[s2], v2-queue2[s2], cnt+1)
+    dfs(0, 0)
 
-    dfs(0, 0, n, m, 0)
-
-    return answer if answer != 300000 else -1
+    return -1 if answer == l else answer
 
 
 print(solution([3, 2, 7, 2], [4, 6, 5, 1]))
