@@ -35,8 +35,46 @@ def solution(n, paths, gates, summits):
 
     return [min_summit, min_dis]
 
+'''
+import collections
 
-print(solution(6, [[1, 2, 3], [2, 3, 5], [2, 4, 2], [2, 5, 4], [3, 4, 4], [4, 5, 3], [4, 6, 1], [5, 6, 1]], [1, 3], [5]))
-print(solution(7, [[1, 4, 4], [1, 6, 1], [1, 7, 3], [2, 5, 2], [3, 7, 4], [5, 6, 6]], [1], [2, 3, 4]))
-print(solution(7, [[1, 2, 5], [1, 4, 1], [2, 3, 1], [2, 6, 7], [4, 5, 1], [5, 6, 1], [6, 7, 1]], [3, 7], [1, 5]))
-print(solution(5, [[1, 3, 10], [1, 4, 20], [2, 3, 4], [2, 4, 6], [3, 5, 20], [4, 5, 6]], [1, 2], [5]))
+def bfs(n, graph, gates, summits, distance):
+    que = collections.deque(gates)
+    while que:
+        cur_loc = que.popleft()
+        if cur_loc in summits: continue
+        for next_loc, way in graph[cur_loc]:
+            if distance[next_loc] > max(distance[cur_loc], way):
+                que.append(next_loc)
+                distance[next_loc] = max(distance[cur_loc], way)
+                
+    return distance
+        
+def solution(n, paths, gates, summits):
+    answer = []
+    graph = [[] for _ in range(n+1)]
+    for a, b, c in paths:
+        graph[a].append([b, c])
+        graph[b].append([a, c])
+        
+    summits_dict = {}
+    min_dis = float('inf')
+    min_summit = -1
+    for summit in summits:
+        summits_dict[summit] = 1
+    
+    distance = [10000001 for _ in range(n+1)]
+    for gate in gates:
+        distance[gate] = 0
+        
+    distance = bfs(n, graph, gates, summits_dict, distance)
+        
+    for summit in summits:
+        if min_dis > distance[summit]:
+            min_dis = distance[summit]
+            min_summit = summit
+        elif min_dis == distance[summit] and min_summit > summit:
+            min_summit = summit
+                
+    return [min_summit, min_dis]
+'''
