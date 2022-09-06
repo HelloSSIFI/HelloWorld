@@ -10,7 +10,6 @@ def solution(alp, cop, problems):
     Q = deque([(alp, cop, 0)])
     dp = [[[0]*210 for _ in range(210)] for _ in range(210)]
 
-    def dfs()
     while Q:
         al, cl, time = Q.popleft()
 
@@ -18,7 +17,7 @@ def solution(alp, cop, problems):
             answer = min(time, answer)
             continue
 
-        if al >= 210 or cl >= 210:
+        if al > 210 or cl > 210:
             continue
 
         if dp[al][cl][time]:continue
