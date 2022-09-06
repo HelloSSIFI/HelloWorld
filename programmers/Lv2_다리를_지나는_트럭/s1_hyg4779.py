@@ -8,10 +8,11 @@ def solution(n, k, arr):
             truck[1] += 1
             if truck[1] == n:
                 tmp = True
-        else:
-            if tmp:
-                val, _ = state.pop(0)
-                w -= val
+
+        if tmp:
+            val, _ = state.pop(0)
+            w -= val
+
         return
 
 
