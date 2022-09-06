@@ -1,4 +1,5 @@
-from collections import deque
+import sys
+sys.setrecursionlimit(10000)
 
 
 def solution(alp, cop, problems):
@@ -7,34 +8,32 @@ def solution(alp, cop, problems):
 
     max_al, max_cl = max(problems, key=lambda x:x[0])[0], max(problems, key=lambda x:x[1])[1]
 
-    Q = deque([(alp, cop, 0)])
-    dp = [[[0]*210 for _ in range(210)] for _ in range(210)]
+    dp = [[float('inf')]*181 for _ in range(181)]
+    dp[alp][cop] = 0
 
-    while Q:
-        al, cl, time = Q.popleft()
+    def dfs(a, c, t):
+        nonlocal answer
 
-        if al >= 210 and cl >= 210:
-            answer = min(time, answer)
-            continue
+        if a >= max_al and c >= max_cl:
+            answer = min(t, answer)
+            return
 
-        if al > 210 or cl > 210:
-            continue
+        if dp[a][c] < t:
+            return
 
-        if dp[al][cl][time]:continue
-        dp[al][cl][time] = 1
+        dp[a][c] = t
 
         for i in range(n):
+            now = problems[i]
+            if a < now[0]:
+                dfs(now[0], c, t + now[0]-a)
+            if c < now[1]:
+                dfs(a, now[1], t + now[1]-c)
+            if a >= now[0] and c >= now[1]:
+                dfs(a+now[2], c+now[3], t+now[4])
 
-            need_al, need_cl, prov_al, prov_cl, cost = problems[i]
 
-            if need_al <= al and need_cl <= cl:
-                Q.append((al+prov_al, cl+prov_cl, time+cost))
-
-            elif need_al <= al:
-                Q.append((al, need_cl, time+abs(need_cl-cl)))
-
-            elif need_cl <= cl:
-                Q.append((need_al, cl, time+abs(need_al-al)))
+    dfs(alp, cop, 0)
 
     return answer
 
