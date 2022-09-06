@@ -22,12 +22,8 @@ def solution(n, k, arr):
     while idx < len(arr):
         bridge()
         now = arr[idx]
-        flag = False
 
         if len(state) < n and w+now <= k:
-            flag = True
-
-        if flag:
             w += now
             state.append([now, 0])
             idx += 1

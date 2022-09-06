@@ -1,41 +1,30 @@
-import sys
-sys.setrecursionlimit(10000)
-# 런타임 에러
-
 def solution(alp, cop, problems):
-    answer = 10000
-    n = len(problems)
 
-    max_al, max_cl = max(problems, key=lambda x:x[0])[0], max(problems, key=lambda x:x[1])[1]
+    ma, mc = 0, 0
+    for p in problems:
+        ma = max(ma, p[0])
+        mc = max(mc, p[1])
 
-    dp = [[float('inf')]*181 for _ in range(181)]
+    dp = [[float('inf')]*(mc+1) for _ in range(ma+1)]
+    alp, cop = min(alp, ma), min(cop, mc)
     dp[alp][cop] = 0
 
-    def dfs(a, c, t):
-        nonlocal answer
+    for i in range(alp, ma+1):
+        for j in range(cop, mc+1):
 
-        if a >= max_al and c >= max_cl:
-            answer = min(t, answer)
-            return
+            if i + 1 <= ma:
+                dp[i+1][j] = min(dp[i+1][j], dp[i][j]+1)
 
-        if dp[a][c] < t:
-            return
+            if j + 1 <= mc:
+                dp[i][j+1] = min(dp[i][j+1], dp[i][j]+1)
 
-        dp[a][c] = t
-
-        for i in range(n):
-            now = problems[i]
-            if a < now[0]:
-                dfs(now[0], c, t + now[0]-a)
-            if c < now[1]:
-                dfs(a, now[1], t + now[1]-c)
-            if a >= now[0] and c >= now[1]:
-                dfs(a+now[2], c+now[3], t+now[4])
+            for a_req, c_req, a_rew, c_rew, cost in problems:
+                if i >= a_req and j >= c_req:
+                    next_a, next_c = min(ma, i+a_rew), min(mc, j+c_rew)
+                    dp[next_a][next_c] = min(dp[next_a][next_c], dp[i][j]+cost)
 
 
-    dfs(alp, cop, 0)
-
-    return answer
+    return dp[-1][-1]
 
 print(solution(10, 10, [[10, 15, 2, 1, 2], [20, 20, 3, 3, 4]]))
 print(solution(0, 0, [[0, 0, 2, 1, 2], [4, 5, 3, 1, 2], [4, 11, 4, 0, 2], [10, 4, 0, 4, 2]]))
