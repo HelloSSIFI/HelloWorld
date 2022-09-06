@@ -1,39 +1,26 @@
+from collections import deque
+
 def solution(queue1, queue2):
+    queue1, queue2 = deque(queue1), deque(queue2)
+    q1_sum = sum(queue1)
 
-    n, m = sum(queue1), sum(queue2)
+    # 두 큐 합의 절반
+    target = (q1_sum + sum(queue2)) // 2
+    cnt = 0
 
-    l = len(queue1)
-    answer = l
+    while queue1 and queue2:
+        # 두 큐 합이 같으면 종료
+        if q1_sum == target:
+            return cnt
 
-    dp = [[[0, 0] for _ in range(l*2)] for _ in range(l*2)]
-    dp[0][0] = [n, m]
+        # queue1의 합이 더 크면 queue1에서 빼기
+        elif q1_sum > target:
+            q1_sum -= queue1.popleft()
 
+        # queue1의 합이 queue2보다 작을 때
+        else:
+            queue1.append(queue2.popleft())
+            q1_sum += queue1[-1]
+        cnt += 1
 
-    def dfs(a, b):
-        nonlocal answer
-        if dp[a][b][0] == dp[a][b][1]:
-            answer = min(answer, a+b)
-            return a+b
-
-        if a+1 < l*2:
-            if a//l:
-                dp[a+1][b] = [dp[a][b][0]-queue2[a%l], dp[a][b][1]+queue2[a%l]]
-            else:
-                dp[a+1][b] = [dp[a][b][0]-queue1[a%l], dp[a][b][1]+queue1[a%l]]
-            dfs(a+1, b)
-
-        if b+1 < l*2:
-            if b//l:
-                dp[a][b+1] = [dp[a][b][0]+queue1[b%l], dp[a][b][1]-queue1[b%l]]
-            else:
-                dp[a][b+1] = [dp[a][b][0]+queue2[b%l], dp[a][b][1]-queue2[b%l]]
-            dfs(a, b+1)
-
-    dfs(0, 0)
-
-    return -1 if answer == l else answer
-
-
-print(solution([3, 2, 7, 2], [4, 6, 5, 1]))
-print(solution([1, 2, 1, 2], [1, 10, 1, 2]))
-print(solution([1, 1], [1, 5]))
+    return -1  # 두 큐 합이 같아지지 않으면 -1 반환
