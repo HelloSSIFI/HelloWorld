@@ -20,18 +20,16 @@ while q:
     for d in direct:
         nr, nc = r + d[0], c + d[1]
         nkey = key
+
         # 범위 안 이면서 벽도 아니고 동일한 키를 가지고 그곳에 방문한 적이 없어야 한다.
         if 0 <= nr < n and 0 <= nc < m and graph[nr][nc] != "#" and visited[nr][nc][key] == 0:
             # 문인 경우
-            # 열쇠가 없으면 continue
-            # & 연산으로 1 혹은 0이 나오게 된다.
+
             if graph[nr][nc].isupper():
                 if not (key & 1 << (ord(graph[nr][nc]) - ord("A"))):
                     continue
             # 열쇠인 경우
-            # or 연산을 통해 key를 교체
-            # a키만 가지고 c키를 먹는다면
-            # 1 -> 101이 된다.
+
             elif graph[nr][nc].islower():
                 nkey |= 1 << ord(graph[nr][nc]) - ord("a")
             elif graph[nr][nc] == "1":
