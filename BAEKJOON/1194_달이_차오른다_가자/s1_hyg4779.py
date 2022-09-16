@@ -6,17 +6,17 @@ n, m = map(int, input().split())
 graph = [list(map(str, input().rstrip())) for _ in range(n)]
 visited = [[[0] * 64 for _ in range(m)] for _ in range(n)]
 direct = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-q = deque()
+Q = deque()
 
 for i in range(n):
     for j in range(m):
         if graph[i][j] == "0":
             graph[i][j] = "."
-            q.append((i, j, 0))
+            Q.append((i, j, 0))
             break
 
-while q:
-    r, c, key = q.popleft()
+while Q:
+    r, c, key = Q.popleft()
     for d in direct:
         nr, nc = r + d[0], c + d[1]
         nkey = key
@@ -35,6 +35,6 @@ while q:
             elif graph[nr][nc] == "1":
                 print(visited[r][c][key] + 1)
                 exit()
-            q.append((nr, nc, nkey))
+            Q.append((nr, nc, nkey))
             visited[nr][nc][nkey] = visited[r][c][key] + 1
 print(-1)
