@@ -8,10 +8,11 @@ def solution(n, k, arr):
             truck[1] += 1
             if truck[1] == n:
                 tmp = True
-        else:
-            if tmp:
-                val, _ = state.pop(0)
-                w -= val
+
+        if tmp:
+            val, _ = state.pop(0)
+            w -= val
+
         return
 
 
@@ -22,12 +23,8 @@ def solution(n, k, arr):
     while idx < len(arr):
         bridge()
         now = arr[idx]
-        flag = False
 
         if len(state) < n and w+now <= k:
-            flag = True
-
-        if flag:
             w += now
             state.append([now, 0])
             idx += 1
