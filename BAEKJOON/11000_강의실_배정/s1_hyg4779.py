@@ -1,22 +1,17 @@
 import heapq
+
 n = int(input())
-lectures = []
 
-for _ in range(n):
-    a, b = map(int, input().split())
-    heapq.heappush(lectures, (b, a))
+lectures = [list(map(int, input().split())) for _ in range(n)]
+lectures.sort()
 
-answer, using = 0, [lectures[0][0]]
+# room = [lectures[0][1]]
+room = []
+heapq.heappush(room, lectures[0][1])
 
 for i in range(1, n):
-    end, start = lectures[i]
+    if room[0] <= lectures[i][0]:
+        heapq.heappop(room)
+    heapq.heappush(room, lectures[i][1])
 
-    tmp = heapq.heappop(using)
-
-    if tmp > start:
-        heapq.heappush(using, tmp)
-
-    heapq.heappush(using, end)
-    answer = max(answer, len(using))
-
-print(answer)
+print(len(room))
