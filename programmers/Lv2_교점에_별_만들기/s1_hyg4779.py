@@ -6,11 +6,14 @@ def solution(line):
         x1, y1, c1 = l1
         x2, y2, c2 = l2
 
+        # 두 직선 평행 조건 == 만나지 않음
         if x1*y2 == y1*x2:
             return None
 
+        # 평행하지 않는 두 직선의 교점
         a = (y1*c2 - y2*c1)/(x1*y2 - x2*y1)
-        b = (c1*x2 - x1*c2)/(x1*y2 - x2*y1)
+        b = (x2*c1 - x1*c2)/(x1*y2 - x2*y1)
+        # b = -(x1*c2 - x2*c1)/(x1*y2 - x2*y1)
 
         if a == int(a) and b == int(b):
             return (int(a), int(b))
