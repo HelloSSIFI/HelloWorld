@@ -1,15 +1,15 @@
-T = int(input())
-for tc in range(T):
-    u = ['w']*9
-    d = ['y']*9
-    f = ['r']*9
-    b = ['o']*9
-    l = ['g']*9
-    r = ['b']*9
+for tc in range(int(input())):
+    u = ['w'] * 9
+    d = ['y'] * 9
+    f = ['r'] * 9
+    b = ['o'] * 9
+    l = ['g'] * 9
+    r = ['b'] * 9
     n = int(input())
 
     turning = list(input().split())
-    for head, p in turning:
+    for i in range(n):
+        head, p = turning[i]
         # 클
         if head == 'U':
             b1, b2, b3 = b[0], b[1], b[2]
@@ -115,4 +115,4 @@ for tc in range(T):
                 b[0], b[3], b[6] = u9, u6, u3
 
     for i in range(0, 9, 3):
-        print(''.join(u[i:i+3]))
+        print(''.join(u[i:i + 3]))
