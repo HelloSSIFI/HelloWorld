@@ -60,7 +60,6 @@ for arr in array:
     while Q:
         # 현재 위치
         r, c = Q.popleft()
-        # 현재 이동거리가 answer보다 작으면 bfs 중지
 
         # 4방향 탐색
         for d in direct:

@@ -63,6 +63,7 @@ def solution(board, aloc, bloc):
 '''
 direct = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
+
 def A_turn(ar, ac, br, bc, cnt, board):
     # A가 0이 됐으면 B가 이긴것
     if board[ar][ac] == 0:
@@ -100,6 +101,7 @@ def A_turn(ar, ac, br, bc, cnt, board):
     else:
         return (1, cnt)
 
+
 def B_turn(br, bc, ar, ac, cnt, board):
     if board[br][bc] == 0:
         return (1, cnt)
@@ -129,13 +131,9 @@ def B_turn(br, bc, ar, ac, cnt, board):
     else:
         return (1, cnt)
 
+
 def solution(board, aloc, bloc):
     ar, ac = aloc
     br, bc = bloc
     answer = A_turn(ar, ac, br, bc, 0, board)[1]
     return answer
-
-print(solution([[1, 1, 1], [1, 1, 1], [1, 1, 1]], [1, 0], [1, 2]))
-print(solution([[1, 1, 1], [1, 0, 1], [1, 1, 1]], [1, 0], [1, 2]))
-print(solution([[1, 1, 1, 1, 1]], [0, 0], [0, 4]))
-print(solution([[1]], [0, 0], [0, 0]))
