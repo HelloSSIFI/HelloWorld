@@ -20,6 +20,34 @@ for p in range(1, len(dp)):
 
 print(min(dp[C:]))
 
+## 풀이 수정 후 통과 코드
+import sys
+input = sys.stdin.readline
+
+C, N = map(int, input().split())
+dp = [0] * (1000 * 1000 + 1)                # dp 최대 범위를 늘려줌
+costs = {}
+for _ in range(N):
+    cost, people = map(int, input().split())
+    costs[cost] = max(costs.get(cost, 0), people)
+
+last = 0
+for c in range(1, len(dp)):
+    possible = []
+    for p in costs.keys():
+        if p <= c:
+            possible.append(p)
+
+    for nc in possible:
+        dp[c] = max(dp[c], dp[c - nc] + costs[nc])
+    
+    last = c
+    if dp[c] >= C:
+        break
+print(last)
+
+
+
 ### best solution(by 재만님)
 C, N = map(int, input().split())
 dp = [0] + [100001] * C
