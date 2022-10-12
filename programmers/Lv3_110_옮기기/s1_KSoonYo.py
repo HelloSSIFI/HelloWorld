@@ -21,6 +21,8 @@ def insert(rest, cnt):
     inserted = ['1', '1', '0']
     front_last = 0
     flag = True
+    
+    # 3개씩 비교해서 '110' 보다 작으면 i+1 슬라이딩
     for i in range(len(rest)):
         k = 0
         comp = rest[i:i+3]
