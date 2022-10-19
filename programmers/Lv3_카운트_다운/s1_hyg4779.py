@@ -1,6 +1,4 @@
 def solution(target):
-    answer = []
-
     # 인덱스: 현재 점수, 값: [쏜 화살의 수, 불 또는 싱글을 쏜 횟수]
     dp = [[target-i, target-i] for i in range(target+1)]
 
@@ -48,49 +46,4 @@ def solution(target):
                 elif dp[i-3*j][0] == dp[i][0]+1 and dp[i-3*j][1] < dp[i][1]:
                     dp[i-3*j] = [dp[i][0]+1, dp[i][1]]
 
-
     return dp[0]
-
-print(solution(21))
-print(solution(58))
-
-"""
-def solution(target):
-    shot = target
-    ball_n_single = 0
-
-    single = list(range(1, 21))
-
-    def dfs(score, cnt, bs):
-        nonlocal shot, ball_n_single
-
-        # answer보다 더 많이 쐈거나 0점 밑으로 내려가면 return
-        if cnt > shot or score < 0:
-            return
-
-        # 0점이면 볼 또는 싱글 횟수 갱신
-        if cnt <= shot and score == 0:
-            if cnt == shot:
-                ball_n_single = max(bs, ball_n_single)
-            else:
-                shot = cnt
-                ball_n_single = bs
-
-            return
-
-
-        dfs(score-50, cnt+1, bs+1)
-
-        for s in single:
-            if score-s < 0:
-                break
-            dfs(score-s, cnt+1, bs+1)
-            dfs(score-s*2, cnt+1, bs)
-            dfs(score-s*3, cnt+1, bs)
-
-
-
-    dfs(target, 0, 0)
-
-    return [shot, ball_n_single]
-"""
