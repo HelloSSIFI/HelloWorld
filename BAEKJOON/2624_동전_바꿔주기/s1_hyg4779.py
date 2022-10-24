@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 T = int(input())
 n = int(input())
 coins = [list(map(int, input().split())) for _ in range(n)]
