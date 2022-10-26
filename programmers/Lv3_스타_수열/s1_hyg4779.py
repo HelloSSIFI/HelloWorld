@@ -18,7 +18,7 @@ def solution(a):
         idx = 0
         while idx < len(a)-1:
             # 두 칸 모두 k가 포함 안되어있거나 두 칸이 같은 값이면 스타수열 안되니까 continue
-            if (a[idx] != k and a[idx+1] != k) or (a[idx] == a[idx+1]):
+            if (a[idx] != k != a[idx+1]) or (a[idx] == a[idx+1]):
                 idx += 1
                 continue
 
@@ -30,7 +30,7 @@ def solution(a):
         # 스타 수열 완성에 쓰인 공통 원소 k가 사용된 최대 횟수 갱신
         answer = max(cnt, answer)
 
-    return -1 if answer == -1 else answer*2
+    return answer*2
 
 
 print(solution([0]))
