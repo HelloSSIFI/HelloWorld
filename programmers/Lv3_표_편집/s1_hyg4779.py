@@ -1,3 +1,4 @@
+# 참고: https://kjhoon0330.tistory.com/entry/프로그래머스-표-편집-Python
 N = 10**9
 
 
@@ -80,6 +81,3 @@ def solution(n, k, camaand):
                     now = table[now].next
 
     return ''.join('O' if table[i].live else 'X' for i in range(n))
-
-print(solution(8, 2, ["D 2", "C", "U 3", "C", "D 4", "C", "U 2", "Z", "Z"]))
-print(solution(8, 2, ["D 2", "C", "U 3", "C", "D 4", "C", "U 2", "Z", "Z", "U 1", "C"]))
