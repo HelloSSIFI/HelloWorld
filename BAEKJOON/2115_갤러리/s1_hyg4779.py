@@ -1,3 +1,4 @@
+'''
 m, n = map(int, input().split())
 gallery = [list(input()) for _ in range(m)]
 
@@ -65,3 +66,29 @@ for k in [1, 3]:
 
 
 print(wall)
+'''
+n, m = map(int, input().split())
+gallery = [list(input()) for _ in range(n)]
+
+answer = 0
+
+
+def pic(obj1, obj2, n, m, x, y):
+    global answer
+    rc = [0, 0]
+    for rc[x] in range(n-1):
+       cnt = 0
+       for rc[y] in range(m):
+           if gallery[rc[0]][rc[1]] == obj1 and gallery[rc[0]+y][rc[1]+x] == obj2:
+               cnt += 1
+           else:
+                answer += cnt // 2
+                cnt = 0
+
+for obj1, obj2 in [['X', '.'], ['.', 'X']]:
+    pic(obj1, obj2, n, m, 0, 1)
+    pic(obj1, obj2, m, n, 1, 0)
+
+print(answer)
+
+https://velog.io/@hyg8702/백준갤러리python파이썬
