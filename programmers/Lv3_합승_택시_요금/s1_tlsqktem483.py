@@ -1,6 +1,3 @@
-"""
-시간초과
-"""
 from collections import defaultdict
 
 
@@ -31,22 +28,9 @@ def solution(n, s, a, b, fares):
 
     distance = floyd_warshall()
 
-    def dfs(cur, route, cnt):
-        nonlocal ans
-
-        if cnt >= ans:
-            return
-
-        cost = cnt + distance[cur][a-1] + distance[cur][b-1]
-
-        if ans > cost:
-            ans = cost
-
-        for n_node in n_dict[cur]:
-            if n_node not in route:
-                dfs(n_node, route+[n_node], cnt+distance[cur][n_node])
-
-    dfs(s-1, [s-1], 0)
+    for k in range(n):
+        total = distance[s-1][k] + distance[k][a-1] + distance[k][b-1]
+        ans = min(ans, total)
 
     return ans
 
