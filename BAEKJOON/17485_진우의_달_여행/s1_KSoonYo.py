@@ -1,3 +1,4 @@
+# pypy3 통과
 import sys
 limit_number = 15000
 sys.setrecursionlimit(limit_number)
@@ -45,6 +46,7 @@ print(minF)
 
 
 # 다른 풀이
+# python3 통과
 N, M = map(int, input().split())
 graph = [list(map(int, input().split())) for _ in range(N)]
 
