@@ -1,104 +1,96 @@
-from collections import deque
-
+# 재만님 코드 참고
 
 def solution(game_board, table):
-    # 블록 빈칸 채우기
-    def fill():
 
-        for x in range(a):
-            for y in range(b):
-                ni, nj = i + x, j + y
-                if 0 <= ni < n and 0 <= nj < n and board[ni][nj] + now[x][y] == 1:
-                    if now[x][y] == 1:
-                        board[ni][nj] = 2
-                        block.append((ni, nj))
-                else:
-                    return False
-        return True
+    # game_board의 빈칸, table의 블럭 찾는 함수
+    def finding(mat, num):
+        # return할 블럭 및 빈칸들이 들어있는 배열
+        arr = []
+        visit = [[0]*n for _ in range(n)]
+        for i in range(n):
+            for j in range(n):
+                # 현재 찾는 것(블럭 / 빈칸)과 같고 방문하지 않았으면 BFS
+                if mat[i][j] != num or visit[i][j]:
+                    continue
 
-    # 현재 블록 주변 빈칸 탐색
-    def isblank():
-        for r, c in block:
-            for d in range(4):
-                nr, nc = r + dx[d], c + dy[d]
-                if 0 <= nr < n and 0 <= nc < n:
-                    # 주변에 빈칸이 있다면 False
-                    if board[nr][nc] == 0:
-                        return False
-        return True
-
-
-    answer = 0
-    n, shapes = len(table), []
-    dx, dy = (0, 1, 0, -1), (1, 0, -1, 0)
-    visit = [[0 for _ in range(n)] for _ in range(n)]
-
-
-    # table의 도형들 추출
-    for i in range(n):
-        for j in range(n):
-            if table[i][j] and visit[i][j] == 0:
+                Q = [[i, j]]
                 visit[i][j] = 1
-                Q, el = deque([(i, j)]), [(0, 0)]
-                min_x, min_y, max_x, max_y = i, j, i, j
-
-                while Q:
-                    r, c = Q.popleft()
-
+                k = 0
+                while k < len(Q):
+                    r, c = Q[k]
                     for d in range(4):
-                        nr, nc = r + dx[d], c + dy[d]
-                        if 0 <= nr < n and 0 <= nc < n and table[nr][nc] and visit[nr][nc] == 0:
-                            visit[nr][nc] = 1
-                            el.append((nr-i, nc-j))
-                            Q.append((nr, nc))
-                            min_x, min_y = min(min_x, nr), min(min_y, nc)
-                            max_x, max_y = max(max_x, nr), max(max_y, nc)
+                        nr, nc = r + dr[d], c + dc[d]
+                        if 0 <= nr < n and 0 <= nc < n:
+                            if not visit[nr][nc] and mat[nr][nc] == num:
+                                Q.append([nr, nc])
+                                visit[nr][nc] = 1
+                    k += 1
 
-                shape = [[0]*(max_y-min_y+1) for _ in range(max_x-min_x+1)]
+                # 도형 추가
+                arr.append(Q)
+        return arr
 
-                for ni, nj in el:
-                    shape[ni][nj] = 1
+    # 도형 위치 인덱스를 1개의 문자열로 이어서 반환
+    def hashing(group):
+        # 해당 도형 위치의 가장 왼쪽 모서리
+        min_r, min_c = 50, 50
+        for r, c in group:
+            min_r = min(min_r, r)
+            min_c = min(min_c, c)
 
-                shapes.append(shape)
+        # 도형을 왼쪽 구석에 넣었을때 위치로 갱신
+        for i in range(len(group)):
+            group[i][0] -= min_r
+            group[i][1] -= min_c
 
-    # 도형의 개수
-    m = len(shapes)
+        # 최선 행, 차선 열 오름차순으로 정렬
+        group.sort()
 
-    for k in range(m):
-        now = shapes[k]
-        flag = False
 
-        # 회전 까지 총 4번 탐색
+        # 문자열로 바꿔주고 return
+        arr = []
+        for r, c in group:
+            arr.append(str(r))
+            arr.append(str(c))
+
+        return ''.join(arr)
+
+    # 빈칸의 위치를 90도 회전시키는 함수
+    def rotate(shape):
+        for i in range(len(shape)):
+            r, c = shape[i]
+            shape[i] = [c, -r]
+
+    n = len(game_board)
+    dr, dc = [0, 0, 1, -1], [1, -1, 0, 0]
+    answer = 0
+
+    # 블럭과 빈칸 찾음
+    block = finding(table, 1)
+    blank = finding(game_board, 0)
+
+    # 블럭들 문자열로 해싱후 딕셔너리에 저장
+    for i in range(len(block)):
+        block[i] = hashing(block[i])
+
+    temp = dict()
+    for i in block:
+        temp[i] = temp.get(i, 0) + 1
+    block = temp
+
+    # 빈칸들을 순회하면서
+    # 해당 빈칸을 4번 90도 회전하며, 맞는 블럭이 있는지 탐색
+    # 있으면 블럭 딕셔너리에 개수 -1
+    for i in range(len(blank)):
         for _ in range(4):
-            # 도형의 세로 가로 길이
-            a, b = len(now), len(now[0])
-            if flag:break
+            rotate(blank[i])
+            hash_blank = hashing(blank[i])
+            if block.get(hash_blank):
+                block[hash_blank] -= 1
 
-            # game_board의 빈칸 탐색
-            for i in range(n-a+1):
-                if flag:break
-
-                for j in range(n-b+1):
-
-                    # 게임판 복사
-                    board = [row[:] for row in game_board]
-                    # 현재 도형의 인덱스 담음
-                    block = []
-
-                    # 도형이 꽉 차면
-                    if fill():
-                        # 도형을 모두 채웠으면 빈칸 검사
-                        if isblank():
-                            answer += len(block)
-                            game_board = board
-                            flag = True
-                    if flag:break
-            # 도형 회전
-            now = list(zip(*now[::-1]))
+                # 인덱스가 행열행열....식으로 들어가기 때문에
+                # 문자열의 길이 //2 해서 answer에 추가
+                answer += len(hash_blank)//2
+                break
 
     return answer
-
-print(solution([[1, 1, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0], [0, 1, 1, 0, 0, 1], [1, 1, 0, 1, 1, 1], [1, 0, 0, 0, 1, 0], [0, 1, 1, 1, 0, 0]],
-               [[1, 0, 0, 1, 1, 0], [1, 0, 1, 0, 1, 0], [0, 1, 1, 0, 1, 1], [0, 0, 1, 0, 0, 0], [1, 1, 0, 1, 1, 0], [0, 1, 0, 0, 0, 0]]))
-
-print(solution([[0,0,0],[1,1,0],[1,1,1]], [[1,1,1],[1,0,0],[0,0,0]]))
