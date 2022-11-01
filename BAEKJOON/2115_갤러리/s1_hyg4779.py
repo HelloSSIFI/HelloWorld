@@ -90,5 +90,3 @@ for obj1, obj2 in [['X', '.'], ['.', 'X']]:
     pic(obj1, obj2, m, n, 1, 0)
 
 print(answer)
-
-https://velog.io/@hyg8702/백준갤러리python파이썬
