@@ -1,19 +1,27 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 
-balls = [0]
-b = 0
+arr = []
+num = 0
 i = 1
-while b < n:
-    b += i
+
+while n > num:
+    num += (i*(i+1))//2
+    arr.append(num)
     i += 1
-    balls.append(b)
 
-print(balls)
+dp = [int(1e9) for i in range(n+1)]
+for i in range(1, n+1):
+    for num in arr:
+        if num == i:
+            dp[i] = 1
+            break
+        elif num > i:
+            break
 
-dp = [0]*300001
-frame = 0
-for i in range(len(balls)-1):
-    for j in range(balls[i], balls[i]+balls[i+1]+1):
-        dp[j] = frame
-    frame += 1
+        dp[i] = min(dp[i], 1+dp[i-num])
+
+
 print(dp[n])
